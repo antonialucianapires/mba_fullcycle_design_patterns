@@ -1,3 +1,5 @@
+create extension if not exists "uuid-ossp";
+
 drop schema branas cascade;
 
 create schema branas;
