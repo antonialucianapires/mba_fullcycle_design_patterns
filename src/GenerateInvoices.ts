@@ -1,11 +1,16 @@
 import moment from "moment";
-import ContractDatabaseRepository from "./ContractDatabaseRepository";
+import ContractRepository from "./ContractRepository";
 
 
 export default class GenerateInvoices {
+
+    constructor(readonly contractRepository: ContractRepository) {
+
+    }
+
     async execute(input: Input): Promise<Output[]> {
         const output: Output[] = [];
-        const contracts = await new ContractDatabaseRepository().list();
+        const contracts = await this.contractRepository.list();
         for (const contract of contracts) {
             if (input.type === "cash") {
                 for (const payment of contract.payments) {
