@@ -1,31 +1,37 @@
+import ContractDatabaseRepository from "../src/ContractDatabaseRepository";
 import ContractRepository from "../src/ContractRepository";
+import DatabaseConnection from "../src/DatabaseConnection";
 import GenerateInvoices from "../src/GenerateInvoices";
+import PgPromiseAdapter from "../src/PgPromiseAdapter";
 
 let generateInvoices: GenerateInvoices;
+let connection: DatabaseConnection;
 
 beforeEach(() => {
-    const contractRepository: ContractRepository = {
-        list: async function () {
-            return [
-                {
-                    idContract: "",
-                    description: "",
-                    amount: "6000",
-                    periods: 12,
-                    date: new Date("2021-01-01T10:00:00.000Z"),
-                    payments: [
-                        {
-                            idPayment: "",
-                            idContract: "",
-                            date: new Date("2022-01-05T10:00:00.000Z"),
-                            amount: "6000"
-                        }
-                    ]
-                }
-            ];
-        }
-    }
+    // const contractRepository: ContractRepository = {
+    //     list: async function () {
+    //         return [
+    //             {
+    //                 idContract: "",
+    //                 description: "",
+    //                 amount: "6000",
+    //                 periods: 12,
+    //                 date: new Date("2021-01-01T10:00:00.000Z"),
+    //                 payments: [
+    //                     {
+    //                         idPayment: "",
+    //                         idContract: "",
+    //                         date: new Date("2022-01-05T10:00:00.000Z"),
+    //                         amount: "6000"
+    //                     }
+    //                 ]
+    //             }
+    //         ];
+    //     }
+    // }
 
+    connection = new PgPromiseAdapter();
+    const contractRepository = new ContractDatabaseRepository(connection);
     generateInvoices = new GenerateInvoices(contractRepository);
 })
 
