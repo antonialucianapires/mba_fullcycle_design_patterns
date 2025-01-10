@@ -19,7 +19,7 @@ export default class GenerateInvoices {
                     }
                     output.push({
                         date: moment(payment.date).format("YYYY-MM-DD"),
-                        amount: parseFloat(payment.amount)
+                        amount: payment.amount
                     });
                 }
             }
@@ -29,7 +29,7 @@ export default class GenerateInvoices {
                 while (period <= contract.periods) {
                     const date = moment(contract.date).add(period++, "months").toDate();
                     if (date.getMonth() + 1 !== input.month || date.getFullYear() !== input.year) continue;
-                    const amount = parseFloat(contract.amount) / contract.periods;
+                    const amount = contract.amount / contract.periods;
                     output.push({ date: moment(date).format("YYYY-MM-DD"), amount });
                 }
 
