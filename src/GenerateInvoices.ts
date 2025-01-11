@@ -2,8 +2,9 @@ import moment from "moment";
 import ContractRepository from "./ContractRepository";
 import Presenter from "./Presenter";
 import JsonPresenter from "./JsonPresenter";
+import UseCase from "./UseCase";
 
-export default class GenerateInvoices {
+export default class GenerateInvoices implements UseCase {
 
     constructor(readonly contractRepository: ContractRepository, 
         readonly presenter: Presenter = new JsonPresenter()) {
